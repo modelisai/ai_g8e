@@ -1,31 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ProjectList from './pages/ProjectList';
 import ProjectDetails from './pages/ProjectDetails';
 import Policies from './pages/Policies';
-import RiskAssessment from './pages/RiskAssessment.js';
+import RiskAssessment from './pages/RiskAssessment';
 import Compliance from './pages/Compliance';
+import Navbar from './components/Navbar';
 import './styles/App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="content-container">
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/projects" component={ProjectList} />
-            <Route path="/projects/:id" component={ProjectDetails} />
-            <Route path="/policies" component={Policies} />
-            <Route path="/risk-assessment" component={RiskAssessment} />
-            <Route path="/compliance" component={Compliance} />
-          </Switch>
-        </div>
+    <div className="App">
+      <Navbar />
+      <div className="content-container">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/projects" element={<ProjectList />} />
+          <Route path="/projects/:id" element={<ProjectDetails />} />
+          <Route path="/policies" element={<Policies />} />
+          <Route path="/risk-assessment" element={<RiskAssessment />} />
+          <Route path="/compliance" element={<Compliance />} />
+        </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 
