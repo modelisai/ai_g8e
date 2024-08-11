@@ -89,11 +89,11 @@ To set up the development environment:
 
 ## Testing
 
-[Provide instructions for running tests]
+[ToDo]
 
 ## Deployment
 
-[Provide deployment instructions or link to deployment documentation]
+[ToDo]
 
 ## Contributing
 
