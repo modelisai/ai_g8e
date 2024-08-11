@@ -1,22 +1,39 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from .db.database import engine, Base
+from .routes import projects, policies, risk_assessments, compliance
 from pydantic import BaseModel
 from typing import List, Optional
 import uvicorn
 
+
 app = FastAPI()
 
-# Enable CORS
+# Create database tables
+Base.metadata.create_all(bind=engine)
+
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Update this with your frontend URL
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Mock database (replace with actual database in production)
+# Include routers
+# app.include_router(projects.router)
+# app.include_router(policies.router)
+# app.include_router(risk_assessments.router)
+# app.include_router(compliance.router)
+
+# Mock data for AI projects
 ai_projects = []
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the AI Governance Platform API"}
+
 
 class AIProject(BaseModel):
     id: Optional[int]
