@@ -1,0 +1,56 @@
+.project-list-container {
+    padding: 20px;
+  }
+  
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .project-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 10px;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  
+  .status-active { background-color: #28a745; color: white; }
+  .status-pending { background-color: #ffc107; color: black; }
+  .status-completed { background-color: #17a2b8; color: white; }
+  
+  .risk-score {
+    font-weight: bold;
+  }
+  
+  .btn-secondary {
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
