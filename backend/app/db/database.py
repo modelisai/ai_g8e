@@ -9,7 +9,7 @@ load_dotenv()  # This loads the variables from .env
 db_host = os.getenv('DB_HOST')
 db_password = os.getenv('DB_PASSWORD')
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/ai_g8e")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@postgres_server:5432/ai_g8e")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

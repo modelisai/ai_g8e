@@ -8,8 +8,8 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
+    env_file:
+      - .env
     depends_on:
       - backend
 
@@ -21,12 +21,12 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/ai_governance
+    env_file:
+      - .env
     depends_on:
-      - db
+      - postgres_server
 
-  db:
+  postgres_server:
     image: postgres:13
     ports:
       - "5432:5432"
@@ -35,7 +35,7 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=ai_governance
+      - POSTGRES_DB=ai_g8e
 
 volumes:
   postgres_data:
