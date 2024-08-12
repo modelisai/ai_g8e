@@ -7,6 +7,12 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newProject, setNewProject] = useState({
+    name: '',
+    description: '',
+    status: '',
+    risk_score: 0
+  });
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -23,13 +29,35 @@ const ProjectList = () => {
     fetchProjects();
   }, []);
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewProject({ ...newProject, [name]: value });
+  };
+
+  const handleCreateProject = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/api/projects', newProject);
+      setProjects([...projects, response.data]);
+      setNewProject({ name: '', description: '', status: '', risk_score: 0 });
+    } catch (error) {
+      console.error('Error creating project:', error);
+    }
+  };
+
   if (loading) return <div className="loading">Loading projects...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="project-list-container">
       <h1>AI Projects</h1>
-      <Link to="/projects/new" className="btn btn-primary">Create New Project</Link>
+      <form onSubmit={handleCreateProject} className="project-create-form">
+        <input type="text" name="name" value={newProject.name} onChange={handleInputChange} placeholder="Project Name" required />
+        <input type="text" name="description" value={newProject.description} onChange={handleInputChange} placeholder="Description" required />
+        <input type="text" name="status" value={newProject.status} onChange={handleInputChange} placeholder="Status" required />
+        <input type="number" name="risk_score" value={newProject.risk_score} onChange={handleInputChange} placeholder="Risk Score" required step="0.01" min="0" max="1" />
+        <button type="submit">Create New Project</button>
+      </form>
       <div className="project-grid">
         {projects.map(project => (
           <div key={project.id} className="project-card">
@@ -40,6 +68,7 @@ const ProjectList = () => {
               <span className="risk-score">Risk: {project.risk_score.toFixed(2)}</span>
             </div>
             <Link to={`/projects/${project.id}`} className="btn btn-secondary">View Details</Link>
+            <Link to={`/projects/${project.id}/edit`} className="btn btn-primary">Edit</Link>
           </div>
         ))}
       </div>
