@@ -45,7 +45,8 @@ function Dashboard() {
             <Link to={`/projects/${project.id}`}>
               <h3>{project.name}</h3>
               <p>Status: {project.status}</p>
-              <p>Risk Score: {project.risk_score.toFixed(2)}</p>
+              <p>Risk Score: {project.risk_assessment_score?.toFixed(2) || 'N/A'}</p>
+              
             </Link>
           </li>
         ))}
