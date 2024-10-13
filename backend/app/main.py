@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from .db.database import engine, SessionLocal, Base
 from .models.project import AIProject
 from .schemas.project import AIProjectCreate, AIProjectUpdate, AIProject as AIProjectSchema
+from .routes import dashboard
 from typing import List
 from datetime import datetime
 
@@ -28,6 +29,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# Include dashboard routes
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
+
 
 @app.post("/api/projects", response_model=AIProjectSchema)
 async def create_project(project: AIProjectCreate, db: Session = Depends(get_db)):
