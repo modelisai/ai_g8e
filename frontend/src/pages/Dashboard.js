@@ -39,7 +39,8 @@ function Dashboard() {
       setMetrics(metricsResponse.data);
       setLoading(false);
     } catch (err) {
-      setError('Error fetching dashboard data');
+      console.error('Error fetching dashboard data:', err);
+      setError('Error fetching dashboard data. Please try again later.');
       setLoading(false);
     }
   };
@@ -57,10 +58,10 @@ function Dashboard() {
       <h1>AI Governance Dashboard</h1>
 
       <section className="dashboard-metrics">
-        <DashboardMetric title="Total Projects" value={metrics.totalProjects} />
-        <DashboardMetric title="High Risk Projects" value={metrics.highRiskProjects} />
-        <DashboardMetric title="Compliance Rate" value={`${metrics.complianceRate}%`} />
-        <DashboardMetric title="Active Projects" value={metrics.activeProjects} />
+        <DashboardMetric title="Total Projects" value={metrics.totalProjects} type="projects" />
+        <DashboardMetric title="High Risk Projects" value={metrics.highRiskProjects} type="risk" />
+        <DashboardMetric title="Compliance Rate" value={`${metrics.complianceRate}%`} type="compliance" />
+        <DashboardMetric title="Active Projects" value={metrics.activeProjects} type="active" />
       </section>
 
       <section className="dashboard-charts">
